@@ -16,28 +16,28 @@ class State(TypedDict):
     graph_info: str
 
 # Node-1
-def start_play(state: State):
+def start_policy(state: State):
     print("Start play Node has been called")
     return {"graph_info":state["graph_info"] + "I'm palnning to play"}
 
 # Node-2
-def cricket(state:State):
-    print("criket")
-    return {"graph_info":state["graph_info"] + "cricket"}
+def personal(state:State):
+    print("personal")
+    return {"graph_info":state["graph_info"] + "personal"}
 
 # Node-3
-def badminton(state: State):
-    print("badminton")
-    return {"graph_info": state["graph_info"] + "badminton"}
+def commercial(state: State):
+    print("commercial")
+    return {"graph_info": state["graph_info"] + "commercial"}
 
 import random
 from typing import Literal
 
-def random_play(state:State) -> Literal['cricket', 'badminton']:
+def random_play(state:State) -> Literal['personal', 'commercial']:
     if random.random >0.5:
-        return 'badminton'
+        return 'commercial'
     else:
-        return 'cricket'
+        return 'personal'
     
 
 from IPython.display import Image,display # Pip3 install IPython
@@ -48,16 +48,16 @@ graph = StateGraph(State)
 
 
 # Add all the Nodes
-graph.add_node("start_play", start_play)
-graph.add_node("cricket", cricket)
-graph.add_node("badminton", badminton)
+graph.add_node("start_policy", start_policy)
+graph.add_node("personal", personal)
+graph.add_node("commercial", commercial)
 
 
 ## Schedule the flow of the graph
-graph.add_edge(START, "start_play")
-graph.add_conditional_edges("start_play", random_play)
-graph.add_edge("cricket", END)
-graph.add_edge("badminton", END)
+graph.add_edge(START, "start_policy")
+graph.add_conditional_edges("start_policy", random_play)
+graph.add_edge("personal", END)
+graph.add_edge("commercial", END)
 
 
 
